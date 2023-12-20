@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/test2/static/css/main.d3894acf.css",
+    "main.js": "/test2/static/js/main.7bd23f2a.js",
+    "index.html": "/test2/index.html",
+    "static/media/pinIcon.svg": "/test2/static/media/pinIcon.d212070aead272a667a0ed12d8980399.svg",
+    "static/media/circleIcon.svg": "/test2/static/media/circleIcon.e84ed7448ba266138149650023ed69a6.svg",
+    "main.d3894acf.css.map": "/test2/static/css/main.d3894acf.css.map",
+    "main.7bd23f2a.js.map": "/test2/static/js/main.7bd23f2a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3894acf.css",
+    "static/js/main.7bd23f2a.js"
+  ]
+}
