@@ -12,8 +12,8 @@ export const Map3 = () => {
   const [ countryData, setCountryData ] = useState( [] );
   const [ markersVisible, setMarkersVisible ] = useState( false );
   const maxBounds = L.latLngBounds( // limiting map move at the max zoom out
-      L.latLng( -57, -160 ), // Southwest corner
-      L.latLng( 90, 180 ), // Northeast corner
+      L.latLng( -57, -160 ), // Southwest corner - права нижня точка
+      L.latLng( 90, 180 ), // Northeast corner - ліва верхня точка
   );
   const mapContainerRef = useRef( null );
 
@@ -74,21 +74,17 @@ export const Map3 = () => {
 
   useEffect( () => {
     const mapContainer = mapContainerRef.current;
-
     const handleIntersection = ( entries ) => {
       const [ entry ] = entries;
       setMarkersVisible( entry.isIntersecting );
     };
-
     const observer = new IntersectionObserver( handleIntersection, {
       root: null,
       threshold: 0.5,
     } );
-
     if ( mapContainer ) {
       observer.observe( mapContainer );
     }
-
     return () => {
       if ( mapContainer ) {
         observer.unobserve( mapContainer );

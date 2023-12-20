@@ -4,7 +4,7 @@ import L from 'leaflet';
 import pinIcon from './icons/pinIcon.svg';
 import circleIcon from './icons/circleIcon.svg';
 
-const placeMarkers = ( dotContainerClass, pinContainerClass, circleContainerClass, number, order ) => {
+const placeMarkers = ( dotContainerClass, pinContainerClass, circleContainerClass, order ) => {
   const cumulativeDelay = 300 * order;
 
   setTimeout( () => {
@@ -83,7 +83,7 @@ export const IconMarker = ( { countryData } ) => {
           `,
     } );
 
-    placeMarkers( dotContainerClass, pinContainerClass, circleContainerClass, number, index );
+    placeMarkers( dotContainerClass, pinContainerClass, circleContainerClass, index );
 
     return (
       <Marker

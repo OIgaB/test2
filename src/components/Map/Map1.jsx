@@ -65,23 +65,20 @@ export const Map1 = () => {
     fetchData( backendData );
   }, [] );
 
+  
   useEffect( () => { // поява маркерів тільки, коли докрутили мишкою до карти
     const mapContainer = mapContainerRef.current;
-
     const handleIntersection = ( entries ) => {
       const [ entry ] = entries;
       setMarkersVisible( entry.isIntersecting );
     };
-
     const observer = new IntersectionObserver( handleIntersection, {
       root: null,
       threshold: 0.5,
     } );
-
     if ( mapContainer ) {
       observer.observe( mapContainer );
     }
-
     return () => {
       if ( mapContainer ) {
         observer.unobserve( mapContainer );
@@ -102,14 +99,13 @@ export const Map1 = () => {
                 maxBoundsViscosity= { 1.0 }
                 scrollWheelZoom={ false }
                 style={ { height: '700px', width: '1030px' } }
-                // по макету: height: '540px', width: '1120px'
             >
-            <TileLayer
-                attribution='&copy;
-                <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            { markersVisible && <IconMarker countryData={ countryData } /> }
+                <TileLayer
+                    attribution='&copy;
+                    <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                { markersVisible && <IconMarker countryData={ countryData } /> }
             </MapContainer>
         </div>
     </div>
