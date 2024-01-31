@@ -1,13 +1,10 @@
 import { useState } from 'react';
-// import { useRef, createRef } from "react";
-import { api } from '../../services/api';
+// import { api } from '../../services/api';
 
 
 export const FilesUpload = () => {
-  // const fileInput = useRef();
-  // const fileInput = createRef();
-  const [file, setFile] = useState(); //  заг. опис - перевірити чи це '' чи {}
-  const [currentFile, setCurrentFile] = useState(); // детальні закодовані дані - за замовчуванням має бути результат get-запиту
+  const storedAttachments = JSON.parse( localStorage.getItem( 'attachments' ) ) || [];
+  const [attachments, setAttachments] = useState(storedAttachments); // детальні закодовані дані
 
 
   const handleFileChange = e => {
@@ -35,7 +32,7 @@ export const FilesUpload = () => {
     }
     
     const allowedFormats = [ // Допустимі формати - mimeTypes 
-      'application/pdf',
+      // 'application/pdf',
       'image/jpeg',
       'image/png',
       'image/gif',
@@ -49,19 +46,20 @@ export const FilesUpload = () => {
       return;
     }
 
-    setFile(inputFile);
-
     const reader = new FileReader();
     reader.onload = function (event) {
-      setCurrentFile(event.target.result);
+      setAttachments((prev) => {
+        localStorage.setItem( 'attachments', JSON.stringify( [...prev, event.target.result ] ) );
+        return [...prev, event.target.result]
+      });
       console.log(event.target.result); 
     };
 
     // ці методи читають зміст окремого Blob
-    // reader.readAsDataURL(file); // => console.log(event.target.result); безкінченний рядок (data: URL, що представляє дані файлу): data:application/pdf;base64,JVBERi0xLjQKJfbk/N8KMSAwIG9iago8PAovV 
-    // reader.readAsText(file); // результат у форматі рядка
-    // reader.readAsBinaryString(file); // результат у форматі як і readAsText - необроблені двійкові дані у вигляді рядка
-    reader.readAsArrayBuffer(file); // формат: 
+    reader.readAsDataURL(inputFile); // => console.log(event.target.result); безкінченний рядок (data: URL, що представляє дані файлу): data:application/pdf;base64,JVBERi0xLjQKJfbk/N8KMSAwIG9iago8PAovV 
+    // reader.readAsText(inputFile); // результат у форматі рядка
+    // reader.readAsBinaryString(inputFile); // результат у форматі як і readAsText - необроблені двійкові дані у вигляді рядка
+    // reader.readAsArrayBuffer(inputFile); // формат: 
     // ArrayBuffer(163856)
     // byteLength: 163856
     // detached: false
@@ -76,16 +74,16 @@ export const FilesUpload = () => {
     // [[ArrayBufferData]]: 118
   };
 
-  const handleUploadFile = async (formData) => {
-    try {
-        const data = await api.addFile(formData); 
-        console.log('data from back:', data);
-        // setTasks(prevState => [...prevState, data]);
-        return data;
-    } catch(error) {
-        console.error(error.message); 
-    }
-};
+//   const handleUploadFile = async (formData) => {
+//     try {
+//         const data = await api.addFile(formData); 
+//         console.log('data from back:', data);
+//         // setTasks(prevState => [...prevState, data]);
+//         return data;
+//     } catch(error) {
+//         console.error(error.message); 
+//     }
+// };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -95,12 +93,12 @@ export const FilesUpload = () => {
     // console.log(fileInput.current.value); // C:\fakepath\image (20).png  - useRef()
     // console.log(fileInput.current.value); // C:\fakepath\image (20).png  - createRef()
 
-    const formData = new FormData(); // FormData {} об'єкт з методами
+    // const formData = new FormData(); // FormData {} об'єкт з методами
 
-    if (file) formData.set('file', file); // метод set - зміна існуючого елемента 
+    // if (file) formData.set('file', file); // метод set - зміна існуючого елемента 
     // formData.append('file', file); - метод append - додавання нового текстового поля в форму
 
-    handleUploadFile(formData); // відправляємо на бек formData 
+    // handleUploadFile(formData); // відправляємо на бек formData 
   };
 
 
@@ -125,31 +123,35 @@ export const FilesUpload = () => {
     //   console.log('formData', formData); // FormData {} об'єкт з методами
 
   return (
-    <div>
+    <div style={{ padding: '0px 50px 50px 50px' }}>
       <form onSubmit={handleSubmit}>
         <label>
           <input 
+            name="attachment" 
             type="file" 
-            name="file" 
-            // id="fileInput" 
-            // ref={fileInput} 
             onChange={handleFileChange}
-            accept="application/pdf, image/*,.png,.jpg,.gif,.web" // інші формати файлів не будуть видимі при виборі
+            accept="image/*,.png,.jpg,.gif,.web" // інші формати файлів не будуть видимі при виборі //application/pdf
           />
         </label>
-        <button type="submit">Upload file</button> 
+        {/* <button type="submit">Upload file</button>  */}
       </form>
-      <div style={{ width: '500px', height: '500px', backgroundColor: 'yellowgreen'}}>
-        <p>Тут буде відображатись те, що завантажимо (image/pdf ...)</p>
-        {currentFile !== '/' ? (
-          <img
-            src={currentFile}
-            alt="file"
-            // className={scss.file}
-          />
-        ) : (
-          <p>Щось інше</p>
-        )}
+      <div >
+        <p style={{ margin: '10px' }}>Place for your images</p>
+        <ul style={{ display: 'flex', gap: '10px', backgroundColor: 'paleturquoise', width: '100%', minHeight: '210px' }}>
+          {attachments.length > 0 && (
+            attachments.map((item) => (
+              <li key={item} style={{ width: '300px', height: '200px' }}>
+                <img
+                  src={item}
+                  alt="file"
+                  width='100%'
+                  height='100%'
+                  style={{ objectFit: 'cover' }}
+                />                 
+              </li>
+            ))
+          )}          
+        </ul>
       </div>
     </div>
   );
