@@ -18,6 +18,7 @@ export const Header = () => {
   const handleCountryOverflow = ( overflowSize ) => {
     setOverflow( overflowSize );
   };
+  console.log( 'Hey, yaaa!' );
 
   return (
     <S.Header>
