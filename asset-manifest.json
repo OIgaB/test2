@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/test2/static/css/main.59a2ef3d.css",
-    "main.js": "/test2/static/js/main.90f8e027.js",
+    "main.css": "/test2/static/css/main.cfd985d0.css",
+    "main.js": "/test2/static/js/main.5b2409e9.js",
     "static/media/image 4.png": "/test2/static/media/image 4.603cf31c5c19ae726cf0.png",
     "static/media/image 1.png": "/test2/static/media/image 1.302676a5b02bf6a63ecc.png",
     "static/media/image 8.png": "/test2/static/media/image 8.d091834e346c1cd7a709.png",
@@ -9,7 +9,8 @@
     "static/media/image 6.png": "/test2/static/media/image 6.4dfc56248d8a4e8384e4.png",
     "static/media/image 5.png": "/test2/static/media/image 5.038bee78ad2051eeb10d.png",
     "static/media/image 3.png": "/test2/static/media/image 3.cf723edf7b514a1b2fc0.png",
-    "static/media/sprite.svg": "/test2/static/media/sprite.648f84d06fb3c945daa965d1c324f343.svg",
+    "static/media/sprite.svg": "/test2/static/media/sprite.2223eeb043c7861e6b3e66839fe0b9fb.svg",
+    "static/media/logo.svg": "/test2/static/media/logo.10f06b0018b8a690aa03035ffe35f33a.svg",
     "static/media/slick.svg": "/test2/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/test2/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/test2/static/media/slick.c94f7671dcc99dce43e2.ttf",
@@ -17,11 +18,11 @@
     "index.html": "/test2/index.html",
     "static/media/pinIcon.svg": "/test2/static/media/pinIcon.d212070aead272a667a0ed12d8980399.svg",
     "static/media/circleIcon.svg": "/test2/static/media/circleIcon.e84ed7448ba266138149650023ed69a6.svg",
-    "main.59a2ef3d.css.map": "/test2/static/css/main.59a2ef3d.css.map",
-    "main.90f8e027.js.map": "/test2/static/js/main.90f8e027.js.map"
+    "main.cfd985d0.css.map": "/test2/static/css/main.cfd985d0.css.map",
+    "main.5b2409e9.js.map": "/test2/static/js/main.5b2409e9.js.map"
   },
   "entrypoints": [
-    "static/css/main.59a2ef3d.css",
-    "static/js/main.90f8e027.js"
+    "static/css/main.cfd985d0.css",
+    "static/js/main.5b2409e9.js"
   ]
 }
