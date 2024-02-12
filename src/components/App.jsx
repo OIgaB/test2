@@ -2,7 +2,7 @@ import GeneralStyles from '../styles/generalStyles';
 import Theme from '../theme/Theme';
 import { Routes, Route } from 'react-router';
 import Layout from './Layout/Layout';
-import Home from '../pages/Home';
+import HomePage from '../pages/Home/HomePage';
 
 
 export const App = () => {
@@ -13,7 +13,7 @@ export const App = () => {
       <Theme>
         <Routes>
           <Route path='/' element = { <Layout /> }>
-            <Route index element={ <Home /> } />
+            <Route index element={ <HomePage /> } />
           </Route>
         </Routes>
       </Theme>

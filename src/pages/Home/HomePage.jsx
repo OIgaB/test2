@@ -5,9 +5,9 @@ import { Map3 } from "../../components/Map/Map3";
 import { FeedbackCarousel } from "../../components/FeedbackCarousel/FeedbackCarousel";
 import { FilesUpload } from "../../components/FilesUpload/FilesUpload";
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
-  <div>
+  <>
     <div>
       <Map1 /> {/* Базова карта (Leaflet) з точковими координатами центрів необхідних країн (х, y) (ресурс restcountries API) для маркерів */}
       <Map2 /> {/* + поверх шар (стилізується) GeoJSON з завантаженим даними json - координатами полігонів усіх країн світу (без маркерів)*/}
@@ -15,6 +15,8 @@ export const HomePage = () => {
     </div>
     <FeedbackCarousel />
     <FilesUpload />
-  </div>
+  </>
   );
 };
+
+export default HomePage;
