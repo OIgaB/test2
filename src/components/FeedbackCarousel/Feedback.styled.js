@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import { device } from '../../styles/device';
 import { transition } from '../../utils/variables.styled';
 
@@ -108,11 +109,34 @@ export const StarList = styled.ul`
     margin-bottom: 8px;
 `;
 
-export const TeacherNameWrapper = styled.div`
+export const TeacherNameWrapper = styled( Link )`
     display: flex;
     gap: 8px;
     margin-bottom: 8px;
     align-items: center;
+    cursor: pointer;
+    transition: fill ${transition};
+
+    svg.default {
+        fill: ${( props ) => props.color || props.theme.colors.primary};
+    }
+    svg.active {
+        display: none;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        svg.default {
+            display: none;
+        }
+        svg.active {
+            display: block;
+            fill: ${( props ) => props.color || props.theme.colors.primary};
+        }
+        p {
+            text-decoration: underline;
+        }
+    }
 `;
 
 export const TeacherName = styled.p`
@@ -134,12 +158,20 @@ export const Feedback = styled.p`
     margin-bottom: 8px;
     font-family: ${( props ) => props.fontFamily || props.theme.fontFamily.primary};
     font-size: 16px;
-    font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.35;
     color: ${( props ) => props.color || props.theme.colors.black};
-    @media ${device.xxl} {
+
+    ${( props ) => props.$overflow && css`
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;    
+    `};
+
+    @media ${device.sm} {
+        height: 58px;
         font-size: 14px;
-        height: 61px;
+        line-height: 1.37;
     }
 `;
 
@@ -162,7 +194,7 @@ export const Date = styled.span`
     }
 `;
 
-export const Detailed = styled.p`
+export const Detailed = styled( Link )`
     cursor: pointer;
     font-family: ${( props ) => props.fontFamily || props.theme.fontFamily.primary};
     font-size: 16px;
@@ -170,7 +202,12 @@ export const Detailed = styled.p`
     line-height: 1.4;
     letter-spacing: 0.16px;
     color: ${( props ) => props.color || props.theme.colors.primary};
-    @media ${device.xxl} {
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: underline;
+    }
+    @media ${device.sm} {
         font-size: 14px;
         letter-spacing: 0.14px;
     }
@@ -188,21 +225,25 @@ export const ControlBtns = styled.ul`
 `;
 
 export const ControlBtn = styled.button`
-  width: 24px;
-  height: 24px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  width: 27px;
+  height: 27px;
   background-color: transparent;
   border: none;
-`;
-
-export const BtnIcon = styled.svg`
+  
   fill: ${( props ) => props.color || props.theme.colors.white};
   stroke: ${( props ) => props.color || props.theme.colors.primary};
   transition: fill ${transition}, stroke ${transition};
   &:hover,
-   :focus {
-        stroke: rgba(121, 121, 121, 1);
+  &:focus,
+  &:active {
+        transition: fill ${transition}, stroke ${transition};
+        fill: ${( props ) => props.color || props.theme.colors.primary};
         & path {
-            fill: rgba(121, 121, 121, 1);
+            fill: ${( props ) => props.color || props.theme.colors.white};
+            stroke: ${( props ) => props.color || props.theme.colors.white};
         }
    }
   path {

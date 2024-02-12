@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import { IconMarker } from './IconMarker';
 import { fetchCountry } from './api';
@@ -87,9 +87,9 @@ export const Map1 = () => {
   }, [] );
 
   return (
-    <div>
         <div
-            ref={ mapContainerRef } style={ { height: '700px', width: '1030px', overflow: 'hidden' } }
+            ref={ mapContainerRef }
+            style={ { height: '700px', width: '1030px', overflow: 'hidden' } }
         >
             <MapContainer
                 center={ [ 44.0, 10.09 ] }
@@ -105,9 +105,9 @@ export const Map1 = () => {
                     <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                <ZoomControl position='bottomright' />
                 { markersVisible && <IconMarker countryData={ countryData } /> }
             </MapContainer>
         </div>
-    </div>
   );
 };

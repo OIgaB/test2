@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useLayoutEffect } from 'react';
+import _ from 'lodash';
 import { Rating } from './Rating';
 import sprite from '../../assets/sprite.svg';
 import * as S from './Feedback.styled';
@@ -9,18 +10,23 @@ export const FeedbackCard = ( { feedback } ) => {
   const pRef = useRef();
   const [ isOverflowing, setIsOverflowing ] = useState( false );
 
-  const overflowStyles = {
-    display: '-webkit-box',
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
-    overflow: 'hidden',
-  };
+  useLayoutEffect( () => {
+    const checkOverflow = () => {
+      const feedbackTextElement = pRef.current;
+      if ( feedbackTextElement ) {
+        const isContentOverflowing = feedbackTextElement.scrollHeight > feedbackTextElement.clientHeight;
+        setIsOverflowing( isContentOverflowing );
+      }
+    };
 
-  useEffect( () => {
-    const feedbackTextElement = pRef.current;
-    const isContentOverflowing = feedbackTextElement.scrollHeight > feedbackTextElement.clientHeight;
-    // без переповнення: scrollHeight === clientHeight
-    setIsOverflowing( isContentOverflowing );
+    setTimeout( checkOverflow, 0 );
+
+    const handleResize = () => checkOverflow();
+    window.addEventListener( 'resize', _.debounce( handleResize, 800 ) );
+
+    return () => {
+      window.removeEventListener( 'resize', handleResize );
+    };
   }, [] );
 
   return (
@@ -28,22 +34,25 @@ export const FeedbackCard = ( { feedback } ) => {
       <S.StudentName>{studentName}</S.StudentName>
       <S.Photo src={ photo } alt={ studentName } />
       <Rating rating={ rating } />
-      <S.TeacherNameWrapper>
-        <svg width="24px" height="24px">
+      <S.TeacherNameWrapper to='/teacher'>
+        <svg width="24px" height="24px" className='default'>
           <use href={ `${sprite}#icon-hat-graduation` }></use>
+        </svg>
+        <svg width="24px" height="24px" className='active'>
+          <use href={ `${sprite}#icon-hat-graduation-hover` }></use>
         </svg>
         <S.TeacherName>{teacherName}</S.TeacherName>
       </S.TeacherNameWrapper>
       <S.Feedback
         ref={ pRef }
-        style={ isOverflowing ? overflowStyles : {} }
+        $overflow={ isOverflowing }
       >
         {feedbackText}
       </S.Feedback>
       { isOverflowing
         ? <S.CardFooter>
           <S.Date>{date}</S.Date>
-          <S.Detailed>Детальніше</S.Detailed>
+          <S.Detailed to='/teacher'>Детальніше</S.Detailed>
         </S.CardFooter>
         : <S.Date>{date}</S.Date>
       }

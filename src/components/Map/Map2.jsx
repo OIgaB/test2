@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
+import { MapContainer, GeoJSON, TileLayer, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './map.css'; // to override leaflet styles
@@ -28,6 +28,7 @@ export const Map2 = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <GeoJSON data={ mapData.features } />
+        <ZoomControl position='bottomright' />
       </MapContainer>
     </div>
   );

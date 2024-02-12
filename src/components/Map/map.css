@@ -19,7 +19,11 @@
     filter: none;
 }
 
-/* в лівому верхньому куті панель зуму (присутня/відсутня). Зараз відсутня */
 /* .leaflet-control-zoom { 
-    display: none; 
+    display: none;  // прибирає панель зуму
 } */
+
+/* прибирає дефолтну панель зуму зверху зліва */
+.leaflet-top.leaflet-left {
+    display: none;
+}
