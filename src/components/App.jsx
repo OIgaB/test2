@@ -1,9 +1,11 @@
+import { Routes, Route } from 'react-router';
+
 import GeneralStyles from '../styles/generalStyles';
 import Theme from '../theme/Theme';
-import { Routes, Route } from 'react-router';
+import "../chartSetup";
+
 import Layout from './Layout/Layout';
 import HomePage from '../pages/Home/HomePage';
-
 
 export const App = () => {
 

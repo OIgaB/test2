@@ -1,21 +1,22 @@
 import { useState } from 'react';
+
+import * as S from '../FeedbackCarousel/Feedback.styled';
 // import { api } from '../../services/api';
 
-
 export const FilesUpload = () => {
-  const storedAttachments = JSON.parse( localStorage.getItem( 'attachments' ) ) || [];
+  const storedAttachments =
+    JSON.parse(localStorage.getItem('attachments')) || [];
   const [attachments, setAttachments] = useState(storedAttachments); // детальні закодовані дані
-
 
   const handleFileChange = e => {
     // const inputFile = e.currentTarget.files; // FileList {0: File, length: 1}
     const inputFile = e.currentTarget.files[0];
     // console.log(inputFile);
     // File {
-    // name: 'image (30).png', 
-    // lastModified: 1702742682739, 
-    // lastModifiedDate: Sat Dec 16 2023 18:04:42 GMT+0200 (за східноєвропейським стандартним часом), 
-    // webkitRelativePath: '', 
+    // name: 'image (30).png',
+    // lastModified: 1702742682739,
+    // lastModifiedDate: Sat Dec 16 2023 18:04:42 GMT+0200 (за східноєвропейським стандартним часом),
+    // webkitRelativePath: '',
     // size: 556394,
     // type: "image/png"
     // [[Prototype]]: File
@@ -30,16 +31,18 @@ export const FilesUpload = () => {
       alert('File size exceeds 5 MB. Select another file.');
       return;
     }
-    
-    const allowedFormats = [ // Допустимі формати - mimeTypes 
+
+    const allowedFormats = [
+      // Допустимі формати - mimeTypes
       // 'application/pdf',
       'image/jpeg',
       'image/png',
       'image/gif',
       'image/webp',
-    ]; 
+    ];
 
-    if (!allowedFormats.includes(inputFile.type)) { // Перевірка формату файлу
+    if (!allowedFormats.includes(inputFile.type)) {
+      // Перевірка формату файлу
       alert(
         'Unsupported file format. Choose a file with the extension .pdf, .jpg, .png, .gif or .webp.'
       );
@@ -48,18 +51,21 @@ export const FilesUpload = () => {
 
     const reader = new FileReader();
     reader.onload = function (event) {
-      setAttachments((prev) => {
-        localStorage.setItem( 'attachments', JSON.stringify( [...prev, event.target.result ] ) );
-        return [...prev, event.target.result]
+      setAttachments(prev => {
+        localStorage.setItem(
+          'attachments',
+          JSON.stringify([...prev, event.target.result])
+        );
+        return [...prev, event.target.result];
       });
-      console.log(event.target.result); 
+      console.log(event.target.result);
     };
 
     // ці методи читають зміст окремого Blob
-    reader.readAsDataURL(inputFile); // => console.log(event.target.result); безкінченний рядок (data: URL, що представляє дані файлу): data:application/pdf;base64,JVBERi0xLjQKJfbk/N8KMSAwIG9iago8PAovV 
+    reader.readAsDataURL(inputFile); // => console.log(event.target.result); безкінченний рядок (data: URL, що представляє дані файлу): data:application/pdf;base64,JVBERi0xLjQKJfbk/N8KMSAwIG9iago8PAovV
     // reader.readAsText(inputFile); // результат у форматі рядка
     // reader.readAsBinaryString(inputFile); // результат у форматі як і readAsText - необроблені двійкові дані у вигляді рядка
-    // reader.readAsArrayBuffer(inputFile); // формат: 
+    // reader.readAsArrayBuffer(inputFile); // формат:
     // ArrayBuffer(163856)
     // byteLength: 163856
     // detached: false
@@ -74,18 +80,18 @@ export const FilesUpload = () => {
     // [[ArrayBufferData]]: 118
   };
 
-//   const handleUploadFile = async (formData) => {
-//     try {
-//         const data = await api.addFile(formData); 
-//         console.log('data from back:', data);
-//         // setTasks(prevState => [...prevState, data]);
-//         return data;
-//     } catch(error) {
-//         console.error(error.message); 
-//     }
-// };
+  //   const handleUploadFile = async (formData) => {
+  //     try {
+  //         const data = await api.addFile(formData);
+  //         console.log('data from back:', data);
+  //         // setTasks(prevState => [...prevState, data]);
+  //         return data;
+  //     } catch(error) {
+  //         console.error(error.message);
+  //     }
+  // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     // const inputFilee = e.target.elements.file.value;
     // console.log(inputFilee);               // C:\fakepath\image (20).png
@@ -95,64 +101,72 @@ export const FilesUpload = () => {
 
     // const formData = new FormData(); // FormData {} об'єкт з методами
 
-    // if (file) formData.set('file', file); // метод set - зміна існуючого елемента 
+    // if (file) formData.set('file', file); // метод set - зміна існуючого елемента
     // formData.append('file', file); - метод append - додавання нового текстового поля в форму
 
-    // handleUploadFile(formData); // відправляємо на бек formData 
+    // handleUploadFile(formData); // відправляємо на бек formData
   };
 
-
   // const uploadFile = () => {
-    // const fileInput = document.getElementById('fileInput');
-    // // console.log('fileInput', fileInput); // <input ... />
-    // const file = fileInput.files[0];
+  // const fileInput = document.getElementById('fileInput');
+  // // console.log('fileInput', fileInput); // <input ... />
+  // const file = fileInput.files[0];
 
-    // console.log('file', file);
-    //File {name: 'CV - Olga Bagrii.pdf', 
-    //      lastModified: 1697122567585, 
-    //      lastModifiedDate: Thu Oct 12 2023 17:56:07 GMT+0300 (за східноєвропейським літнім часом), 
-    //      webkitRelativePath: '', 
-    //      size: 155287,
-    //      type: "application/pdf"
-    //}
+  // console.log('file', file);
+  //File {name: 'CV - Olga Bagrii.pdf',
+  //      lastModified: 1697122567585,
+  //      lastModifiedDate: Thu Oct 12 2023 17:56:07 GMT+0300 (за східноєвропейським літнім часом),
+  //      webkitRelativePath: '',
+  //      size: 155287,
+  //      type: "application/pdf"
+  //}
 
-    // if(fileInput.current) {
-    //   const formData = new FormData();
-    //   // formData.append('file', file);
-    //   formData('file', fileInput.current.value);
-    //   console.log('formData', formData); // FormData {} об'єкт з методами
+  // if(fileInput.current) {
+  //   const formData = new FormData();
+  //   // formData.append('file', file);
+  //   formData('file', fileInput.current.value);
+  //   console.log('formData', formData); // FormData {} об'єкт з методами
 
   return (
-    <div style={{ padding: '0px 50px 50px 50px' }}>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <input 
-            name="attachment" 
-            type="file" 
-            onChange={handleFileChange}
-            accept="image/*,.png,.jpg,.gif,.web" // інші формати файлів не будуть видимі при виборі //application/pdf
-          />
-        </label>
-        {/* <button type="submit">Upload file</button>  */}
-      </form>
-      <div >
-        <p style={{ margin: '10px' }}>Place for your images</p>
-        <ul style={{ display: 'flex', gap: '10px', backgroundColor: 'paleturquoise', width: '100%', minHeight: '210px' }}>
-          {attachments.length > 0 && (
-            attachments.map((item) => (
-              <li key={item} style={{ width: '300px', height: '200px' }}>
-                <img
-                  src={item}
-                  alt="file"
-                  width='100%'
-                  height='100%'
-                  style={{ objectFit: 'cover' }}
-                />                 
-              </li>
-            ))
-          )}          
-        </ul>
-      </div>
-    </div>
+    <S.Section>
+      <S.Container>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <input
+              name="attachment"
+              type="file"
+              onChange={handleFileChange}
+              accept="image/*,.png,.jpg,.gif,.web" // інші формати файлів не будуть видимі при виборі //application/pdf
+            />
+          </label>
+          {/* <button type="submit">Upload file</button>  */}
+        </form>
+        <div>
+          <p style={{ margin: '10px' }}>Place for your images</p>
+          <ul
+            style={{
+              display: 'flex',
+              gap: '10px',
+              backgroundColor: 'paleturquoise',
+              width: '100%',
+              minHeight: '210px',
+            }}
+          >
+            {attachments.length > 0 &&
+              attachments.map(item => (
+                <li key={item} style={{ width: '300px', height: '200px' }}>
+                  <img
+                    src={item}
+                    alt="file"
+                    width="100%"
+                    height="100%"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </li>
+              ))}
+          </ul>
+        </div>
+      </S.Container>
+    </S.Section>
   );
 };
