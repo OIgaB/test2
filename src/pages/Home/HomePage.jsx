@@ -10,6 +10,7 @@ import * as S from 'components/Grid/Grid.styled';
 import { Map1, Map2, Map3 } from 'components/Map';
 import { FeedbackCarousel } from '../../components/FeedbackCarousel/FeedbackCarousel';
 import { FilesUpload } from '../../components/FilesUpload/FilesUpload';
+import { RegistrationForm } from 'components/RegistrationForm/RegistrationForm';
 
 const HomePage = () => {
   const data = [
@@ -60,6 +61,7 @@ const HomePage = () => {
       />
       <FeedbackCarousel />
       <FilesUpload />
+      <RegistrationForm />
       <Grid
         ItemComponent={ItemComponent2}
         data={data2}
